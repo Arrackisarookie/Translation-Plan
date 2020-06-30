@@ -139,6 +139,8 @@ $ source venv/bin/activate.fish
 
 ### pj
 
+(译者注：翻译的挺烂的，原文写的也不咋地，主要看图和gif大概就能懂)
+
 pj 会以一种预测的方式，在你喜欢的目录之间跳转。
 告诉 pj 去哪里寻找你的项目或者文件夹，
 然后他可以通过 tab 来补全。
@@ -147,3 +149,53 @@ $ omf install pj
 ```
 比如，在 `home`  目录下有个 `test` 文件夹，里面有一堆别的文件夹。
 ![hhh](https://res.cloudinary.com/practicaldev/image/fetch/s--Sv_aZ2Gb--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/2000/1%2AWGRQj64vuEugFL_z2Ffzfw.png)
+为了将 `test` 文件夹标记为跳转目标，我们需要设置这样的项目地址：
+``` shell
+$ set -Ux PROJECT_PATHS ~/test
+```
+现在，我们可以在任意位置来访问 test 内的文件夹了。
+![pj jump](https://res.cloudinary.com/practicaldev/image/fetch/s--bSfr11nc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://cdn-images-1.medium.com/max/2272/1%2AjI0uddiur0aJXbsjmz1y_g.gif)
+_pj 的作用_
+
+### z
+
+z 和 pj 有些相似，但从某种意义上来说 z 更加智能，
+它会持续跟踪你最常访问的一些文件夹，因此你可以轻松的跳到这些位置。
+``` shell
+$ omf install z
+```
+就像我说的，z 是一个智能的工具，即使我输入了错别字，
+它也会从我的最常访问里努力匹配到与输入最相近的那一个。
+![z](https://res.cloudinary.com/practicaldev/image/fetch/s--sxD8x3zV--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://cdn-images-1.medium.com/max/2000/1%2Ax8va4Ph_V_ADbMSre0PasA.gif)
+_z 的作用_
+
+### plugin-git
+和 zsh 中的 git 插件类似，plugin-git 包会给予你一个标准 git 别名集合
+来加速你的 git 工作流。
+``` shell
+$ omf install https://github.com/jhillyerd/plugin-git
+```
+![plugin-git 的作用](https://res.cloudinary.com/practicaldev/image/fetch/s--vSUKKMXZ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://cdn-images-1.medium.com/max/2000/1%2AN9xOm9M149wtYDQdlT7B3w.gif)
+_plugin-git 的作用_
+
+不只这样，为了确保你使用正确的别名，
+它也会将别名进行展开，来形成完整的命令。
+这里有完整的[别名列表](https://github.com/jhillyerd/plugin-git#usage)。
+
+### fzf
+Fuzzy Finder(模糊查找) 或者 fzf 是一种更加快速的通用查找工具，
+可以用它来查找文件或者命令历史。
+``` shell
+$ omf install https://github.com/jethrokuan/fzf
+```
+搜索遍历你的命令历史记录，你可以使用 `ctrl + r` 或者输入该命令的某些部分，
+然后敲击 `ctrl + r` 来精准查找符合条件的命令。
+![fzf 的使用](https://res.cloudinary.com/practicaldev/image/fetch/s--zbqXU3cs--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://cdn-images-1.medium.com/max/2000/1%2AlOEP-GYgbG07VnTca6o18g.gif)
+_fzf 的使用_
+
+如果你想在当前目录下搜索文件，你可以使用 `ctrl + o` 然后浏览他们。
+你可以用这个工具做更多事情，点击[这里](https://github.com/jethrokuan/fzf#usage)查看更多。
+
+## 总结
+我希望这篇文章能很好的指导安装 Fish 和提升工作流的效率。如果你有任何建议或问题，
+下面评论就好~
