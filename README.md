@@ -6,6 +6,12 @@
 
 ---
 
+2020.7.1
+
+Fish 的那篇昨天更完了，今天开了个新坑，
+[Git Concepts I Wish I Knew Years Ago](https://dev.to/g_abud/advanced-git-reference-1o9j)
+---
+
 2020.6.29
 
 说好的不断更，
@@ -17,7 +23,6 @@
 想的是将结果发在我的 Github Page。
 
 新的一篇是 [Command line productivity with Fish shell - Fish 命令行的生产效率](https://dev.to/yankee/command-line-productivity-with-fish-shell-52e4)
-未完成。。
 
 加油。
 
