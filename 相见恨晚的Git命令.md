@@ -1,6 +1,9 @@
-# 相见恨晚的 Git 概念
+# 相见恨晚的 Git 命令
 
-原文链接：[Git Concepts I Wish I Knew Years Ago](https://dev.to/g_abud/advanced-git-reference-1o9j)
+> - 原文地址：[Git Concepts I Wish I Knew Years Ago](https://dev.to/g_abud/advanced-git-reference-1o9j)
+> - 原文作者：[Gabriel Abud](https://dev.to/g_abud)
+> - 译文出自：[DEV Community](https://dev.to/)
+> - 译者：[Arrackisarookie](https://github.com/Arrackisarookie)
 
 我辈开发者使用最多的技术既不是 JavaScript，
 也不是 Python 或者 HTML。
@@ -23,26 +26,9 @@
 本文并不意味着会带你从一个彻底的新手变成专业人员，
 而是默认你已经熟练掌握如何使用 Git。
 
-## 目录
-
-- Git 命令
-    + 日志 (Logging)
-    + 导航 (Navigation)
-    + 修改 (Modifications)
-    + 清理 (Cleanup)
-    + 别名 (Aliases)
-- 其他 Git 技巧
-    + 忽视文件 (Ignoring Files)
-    + 特殊文件 (Special Files)
-- Git 工作流
-    + Rebase vs. Merge
-    + 远程仓库设置 (Remote Repository Setting)
-    + 分支命名 (Branch Naming)
-    + 提交信息 (Commit Messages)
-
 ## Git 命令
 
-### 日志 (Logging)
+### 日志
 
 #### 我刚干哈了
 ``` shell
@@ -289,11 +275,133 @@ $ alias grep <alias-name>
 
 ## 其他 Git 技巧
 ### 忽视文件 (Ignoring Files)
+很多文件可能不需要存在于版本控制中，你可以设置[全局 gitignore 文件](http://egorsmirnov.me/2015/05/04/global-gitignore-file.html)
+来忽视掉它们。需要忽视的文件可能是一些 `node_modules` 文件夹，
+`.vscode` 或其他 IDE 的文件，以及一些 Python 的虚拟环境。
+
+对于一些敏感信息，你可以使用环境变量文件存放，然后将它们添加到
+项目根目录下的 `.gitignore` 文件中。
+
 ### 特殊文件 (Special Files)
+你可能需要将一些文件标记为二进制文件，以便于 Git 可以将其忽视，
+并且不用为它们产生冗长的差异性检测。Git 有一个 `.gitattributes` 文件
+来实现这一操作。比如在一个 JavaScript 项目中，
+你会在 `.gitattributes` 中添加一个 `yarn-lock.json` 或者 
+`package-lock.json`，这样一来，在你每次更新时，
+Git 不用每次都尝试记录它们的差异变化。
+``` shell
+# .gitattributes
+package-lock.json binary
+```
+
 ## Git 工作流
 ### Rebase vs. Merge
-### 远程仓库设置 (Remote Repository Setting)
-### 分支命名 (Branch Naming)
-### 提交信息 (Commit Messages)
+你的团队可能会从 rebase 和 merge 两种工作流中二选其一，
+二者都有利弊，我曾见过这两种方式都可以产生很高的效率。
+对于大多数情况，除非你 _真的_ 了解你正在做什么，
+否则选择 merge 工作流就完事了。
 
+当你主要使用 merge 来为产品更新迭代时，
+仍然也可以高效的使用 rebase。
+最常见的场景是，你正在一个 feature 上工作，
+同时另外一个开发者 pull 了一个别的 feature 到 master。
+你确实可以使用 `git merge` 将那些改变一起带上，
+但是这样，你会对队友做的简单更改有一个额外的 commit。
+你真正想做的是将你的提交 _重新提交_ 到最新的 master 的最上面。
+``` shell
+$ git rebase master
+```
+这条命令将给你一个更干净的 commit 历史。
+
+深度解释它们之间的不同点可能需要一整篇论文来阐述，
+因此，我建议你可以查阅 [the Atlassian docs](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) 中有关这些差异的文章。
+
+### 远程仓库设置 (Remote Repository Setting)
+我对于 GitHub 和 GitLab 最为熟悉，但是其他远程仓库管理器也
+应该支持这些设置。
+
+#### 1. 在 merge 时删除分支
+一旦有分支被 merge，你就不应该在关心这个分支，
+因为它的历史将被映射到你的 master/dev 分支。
+这一举措会显著的减少你所管理的分支数量。
+也可以通过使用 `git fetch -all --prune` 更为高效的保持本地仓库的干净整洁。
+
+#### 2. 防止直接 push 到 master
+如果没有这个设置，很容易在 `git push` 时，忘记自己正在 master，
+这会潜在的破坏你的产品，一点也不好。
+
+#### 3. merge 前至少需要一次确认
+取决于团队的大小，你可能需要在 merge 前需要多次的确认，
+即使只是一个二人团队，最少也要确认一次。
+你不用花费几个小时每行都看，但一般来说，
+你的代码应该至少有两个人看过。
+[反馈](https://dev.to/g_abud/effective-learning-and-feedback-loops-1110) 是学习和个人提升的关键。
+
+#### 4. merge 前需要通过 CI 测试
+(译者注：CI 即 Continuous Integration，[持续集成](https://gitbook.cn/gitchat/column/5aa795539c3cf94d49162f03/topic/5aaa1abe0bb9e857450e7a9e))
+
+已损坏的改变不应该被 merge 到产品中。
+测试人员无法 100% 的捕捉损坏的更改，因此需要自动执行这些检测。
+
+### Pull 请求 (Pull Requests)
+保持 Pull 请求小而简洁，理想情况下不超过几百行。
+小而频繁的 Pull 请求会使得审阅过程更快，从而产生更多的无 bug 代码，
+也会让你的队友更轻松，从而提升团队的效率，也更容易分享学习经验。
+团队内部达成一个共同的承诺，承诺每天都花一些时间来审阅公开 Pull 请求。
+
+我们都爱这样的审阅：
+![reviewing]https://res.cloudinary.com/practicaldev/image/fetch/s--7vLB7w1a--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/gdcwrvn006gryk0xiox0.png)
+
+如果你正在实现的特性在一段时间内都会处于损坏状态，
+请使用[特性标签](https://www.martinfowler.com/articles/feature-toggles.html)来在产品中禁用它。
+这将会防止你的特性分支和 dev/master 分支产生太大差异，
+同时也允许你做更频繁，更小的 Pull 请求。不 merge 代码的时间越长，
+以后 merge 的难度就越大。
+
+最后，在你的 Pull 请求中放一个细节描述，如果必要的话，
+可以放图片或者 GIF。如果你使用像 Jira 这样的工具管理票据
+(tickets，译者注：没使过不太懂啥意思)，
+描述中也可以包括 Pull 请求地址的票据的编号。
+Pull 请求的描述和可视化做的越详细，可能你的队友就越想审阅你的代码，
+而不是拖延着下次一定。
+
+### 分支命名 (Branch Naming)
+你的团队可能会提出分支命名的规范，以便于导航。
+我喜欢每个分支以创建人的名字首字母开头，接着一个左斜杠，
+然后是以短横线连接的分支描述。
+
+这可能看起来微不足道，但是配合 tab 补全以及类似 grep 这样的工具一起使用，
+这确实可以帮你找到并理解可能有的所有分支。
+
+例如，我创建了一个新分支：
+``` shell
+$ git checkout -b gabud/implement-important-feature
+```
+一周后，当我忘记我之前给它起了什么名字，
+我可以键入 `git checkout gabud`，然后按 tab 键，
+我的 Z shell 就会向我展示所有我本地的分支以供选择，
+而不用看我队友们的分支。
+
+### 提交信息 (Commit Messages)
+语言很重要，一般来说，我发现最好不要以破碎状态提交东西，
+每一次提交都应该有一个简洁的信息，说明所做的更改。
+按照官方 [Git 建议](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)，我发现最好使用当前的命令式意义来提交信息。
+可以将每个提交信息视为对 计算机/git 的命令，
+以至于你可以将提交信息加到这句话后面：
+
+**如果这个 commit 被应用，将会...**
+
+在当前命令式意义上，良好的提交示例为：
+``` shell
+$ git commit -m "Add name field to checkout form"
+```
+现在可以这么读：“如果这个 commit 被应用，将会在表单中添加姓名域。”
+
+### 最后的想法
+这绝不是已经了解了 Git 的全部，建议查阅 [官方文档](https://git-scm.com/doc) 
+和 `git help` 了解更多。
+不要害怕向你的队友问一些 Git 的问题，
+你会惊讶的发现大多数队友也有许多相同的问题。
+
+那么你呢？哪个 Git 命令或者概念在你的工作流中最有用呢~
 
