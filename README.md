@@ -8,11 +8,10 @@
 
 - [RFC2616](https://github.com/Arrackisarookie/Translation-Plan/blob/master/RFC2616.md)
 - [Fish 命令行的生产效率](https://github.com/Arrackisarookie/Translation-Plan/blob/master/Fish%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E7%94%9F%E4%BA%A7%E6%95%88%E7%8E%87.md)
-- [相见恨晚的Git命令](https://github.com/Arrackisarookie/Translation-Plan/blob/master/%E7%9B%B8%E8%A7%81%E6%81%A8%E6%99%9A%E7%9A%84Git%E6%A6%82%E5%BF%B5.md)
+- [相见恨晚的Git命令](https://github.com/Arrackisarookie/Translation-Plan/blob/master/相见恨晚的Git命令.md)
 - [高效学习和反馈循环](#)
 
 ## 哔哔赖赖
-
 2020.7.19
 
 Git 终于更完了。。
