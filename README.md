@@ -1,17 +1,26 @@
-## 每日翻译计划
+## 翻译计划
 
-- 从零开始的每日翻译生活
-- 更得不多，但尽量每天更新
+- 从零开始的翻译生活
+- 更得不多，但尽量更新
 - 欢迎纠错~
 
 ## 目录
 
-- [RFC2616](https://github.com/Arrackisarookie/Translation-Plan/blob/master/RFC2616.md)
+- [什么是AUR，如何在Arch和Manjaro中使用AUR](https://github.com/Arrackisarookie/Translation-Plan/blob/master/什么是AUR，如何在Arch和Manjaro中使用AUR.md)
 - [Fish 命令行的生产效率](https://github.com/Arrackisarookie/Translation-Plan/blob/master/Fish%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E7%94%9F%E4%BA%A7%E6%95%88%E7%8E%87.md)
 - [相见恨晚的Git命令](https://github.com/Arrackisarookie/Translation-Plan/blob/master/相见恨晚的Git命令.md)
-- [高效学习和反馈循环](#)
+- [RFC2616](https://github.com/Arrackisarookie/Translation-Plan/blob/master/RFC2616.md)
+- [搁置中] 高效学习和反馈循环
 
 ## 哔哔赖赖
+**2021.2.5**
+
+托更好久了的感觉。。反馈循环那个还没写完。。先放着，没准以后就有动力了呢(bushi)~
+
+然后，fw如我，把 `每日` 俩字去掉了。。
+
+最近翻了一篇 Arch 的，[什么是AUR,如何在Arch和Manjaro中使用AUR](https://itsfoss.com/aur-arch-linux/)
+
 2020.7.19
 
 Git 终于更完了。。
